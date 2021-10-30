@@ -16,7 +16,7 @@ class BTNode {
     public:
         // Constructors
         BTNode(const T& data);
-        BTNode(const T& data, BTNode<T>* parent);
+        BTNode(const T& data, BTNode<T>* parent, BTNode<T>* left, BTNode<T>* right);
         BTNode();
 
         // Destructors
@@ -39,9 +39,9 @@ class BTNode {
         void setRight(BTNode<T>* new_right);
 
     private:
-        Node<T>* parent;
-        Node<T>* left;
-        Node<T>* right;
+        BTNode<T>* parent;
+        BTNode<T>* left;
+        BTNode<T>* right;
         T data;
 };
 

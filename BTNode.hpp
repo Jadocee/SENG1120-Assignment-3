@@ -19,11 +19,11 @@ BTNode<T>::BTNode() {
 }
 
 template<typename T>
-BTNode<T>::BTNode(const T& data, BTNode<T>* parent) {
+BTNode<T>::BTNode(const T& data, BTNode<T>* parent, BTNode<T>* left, BTNode<T>* right) {
     this->data = data;
     this->parent = parent;
-    this->left = NULL;
-    this->right = NULL;
+    this->left = left;
+    this->right = right;
 }
 
 

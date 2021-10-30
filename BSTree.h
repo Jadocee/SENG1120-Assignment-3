@@ -10,7 +10,10 @@
 
 #include <cstdlib>
 #include <ostream>
+#include <string>
+#include <sstream>
 #include "BTNode.h"
+#include "MechPart.h"
 
 template<typename T>
 class BSTree {
@@ -23,27 +26,37 @@ class BSTree {
 
         // Accessors
         int getSize() const;
-
+        std::string toString();
+        std::string toString(int n);
+        int calculateParts();															//ok
+        int calculateInventory();
+        int calculateLessThan(int value);
+        BTNode<T>* search(T& target);
 
         // Mutators
         void add(const T& data);
         void remove(const T& data);
+        void removeChilds(BTNode<T>* node);
 
-    private:
+private:
+        // Private members
         BTNode<T>* root;
         int size;
 
-        // Print contents
-        string infix(BTNode<T>* node);
-
         // Recursive functions
+        std::string infix(BTNode<T>* node, int lvl);
         BTNode<T>* insert(const T& data, BTNode<T>* node);
+        int calculatePartsR(BTNode<T>* node);
+        int calculateInventoryR(BTNode<T>* node);
+        BTNode<T>* find(BTNode<T>* node, T& target);
+        BTNode<T>* findSmallest(BTNode<T>* node);
+        int countLessThan(BTNode<T>* node, int value);
 
 };
 
 // Overloads
 template<typename T>
-std::ostream& operator<<(ostream& out, BSTree<T>& BSTree);
+std::ostream& operator<<(std::ostream& out, const BSTree<T>& tree);
 
 #include "BSTree.hpp"
 

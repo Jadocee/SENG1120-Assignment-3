@@ -31,5 +31,7 @@
 *.out
 *.app
 
+*.stackdump
+
 CMakeLists.txt
 .idea
