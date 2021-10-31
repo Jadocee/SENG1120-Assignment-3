@@ -79,21 +79,20 @@ int main()
     cout << "Initial hash table: " << tableValues << endl; // prints the contents of the hash table.
 
 	cout << endl << "Adding and removing..." << endl;
-	for (int j=0; j<100000; j++)
-	{
+	for (int j=0; j<100000; j++) {
 
-		for (int i=0; i<11; i++)
-		{ // removes the 11 elements in the list. The first one is not present.
-			part.set_code(vectorCodes[i]); part.set_quantity(vectorQuantities[i]);
-			tableValues.remove(part);
-		}
+        for (int i = 0; i < 11; i++) { // removes the 11 elements in the list. The first one is not present.
+            part.set_code(vectorCodes[i]);
+            part.set_quantity(vectorQuantities[i]);
+            tableValues.remove(part);
+        }
 
-		for (int i=1; i<11; i++)
-		{ // adds all elements removed back into the data structure.
-			part.set_code(vectorCodes[i]); part.set_quantity(vectorQuantities[i]);
-			tableValues.add(part);
-		}
-	}
+        for (int i = 1; i < 11; i++) { // adds all elements removed back into the data structure.
+            part.set_code(vectorCodes[i]);
+            part.set_quantity(vectorQuantities[i]);
+            tableValues.add(part);
+        }
+    }
 	cout << endl << endl;
 	//cout << "Final hash table  : " << tableValues << endl << endl; // prints the contents of the hash table.
     cout << "Time elapsed: " << (clock() - t)/1000.0 << " seconds" << endl; // prints elapsed time.

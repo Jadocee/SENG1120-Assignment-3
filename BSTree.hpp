@@ -18,7 +18,7 @@ BSTree<T>::BSTree() {
 // Destructors
 template<typename T>
 BSTree<T>::~BSTree() {
-    removeChilds(this->root);
+    deleteTree(this->root);
 }
 
 // Accessors
@@ -42,7 +42,7 @@ std::string BSTree<T>::toString(int n) {
 template<typename T>
 int BSTree<T>::calculateParts() {
     try {
-        if (this->root == NULL) {
+        if (root == NULL) {
             throw "Tree is empty.";
         } else {
             return(calculatePartsR(this->root));
@@ -63,17 +63,17 @@ int BSTree<T>::calculateLessThan(int value) {
     return countLessThan(this->root, value);
 }
 
-template<typename T>
-BTNode<T>* BSTree<T>::search(T& target) {
+/*template<typename T>
+BTNode<T>* BSTree<T>::search(const T& target) const {
     return find(this->root, target);
-}
+}*/
 
 // Mutators
 template<typename T>
-void BSTree<T>::removeChilds(BTNode<T>* node) {
+void BSTree<T>::deleteTree(BTNode<T>* node) {
     if (node != NULL) {
-        removeChilds(node->getRight());
-        removeChilds(node->getLeft());
+        deleteTree(node->getRight());
+        deleteTree(node->getLeft());
         delete node;
         size--;
     }
@@ -81,8 +81,8 @@ void BSTree<T>::removeChilds(BTNode<T>* node) {
 
 template<typename T>
 void BSTree<T>::add(const T& data) {
-    if (this->root == NULL) {
-        this->root = new BTNode<T>(data);
+    if (root == NULL) {
+        root = new BTNode<T>(data);
         this->size++;
     } else {
         this->insert(data, root);
@@ -95,14 +95,14 @@ BTNode<T>* BSTree<T>::insert(const T& data, BTNode<T>* node) {
         if (node->getLeft() != NULL) {
             node->setLeft(insert(data, node->getLeft()));
         } else {
-            node->setLeft(new BTNode<T>(data, node->getLeft(), NULL, NULL));
+            node->setLeft(new BTNode<T>(data, node, NULL, NULL));
             this->size++;
         }
     } else if (data > node->getData()) {
         if (node->getRight() != NULL) {
             node->setRight(insert(data, node->getRight()));
         } else {
-            node->setRight(new BTNode<T>(data, node->getRight(), NULL, NULL));
+            node->setRight(new BTNode<T>(data, node, NULL, NULL));
             this->size++;
         }
     } else {
@@ -110,49 +110,77 @@ BTNode<T>* BSTree<T>::insert(const T& data, BTNode<T>* node) {
     }
     return node;
 }
-
 template<typename T>
 void BSTree<T>::remove(const T& data) {
-    /*BTNode<T>* targetNode = search(data);
-    if (targetNode->getLeft() != NULL && targetNode->getRight() != NULL) {    // Check if internal node.
-        BTNode<T>* minNode = findSmallest(targetNode->getRight());         // Find smallest value to right.
-        targetNode->setData(minNode->getData());
-        targetNode->setRight(remove())
-    } else if (targetNode->getRight() != NULL) {
-        targetNode
-    }*/
+    BTNode<T>* temp = find(this->root, data);
+    if (temp != NULL) {
+        removeSort(temp);         // Find node.
+    }
+    temp = NULL;
+    delete temp;
 }
+
 
 // Recursive Functions
 template<typename T>
-BTNode<T>* BSTree<T>::findSmallest(BTNode<T>* node){
-    try {
-        if (node == NULL) {
-            throw "Node doesn't exist.";
-        } else if (node->getLeft() != NULL) {
-            return findSmallest(node->getLeft());
-        } else {
-            return node;
+void BSTree<T>::removeSort(BTNode<T>* node) {
+    BTNode<T>* minmaxNode;
+    if (node->getLeft() != NULL && node->getRight() != NULL) {  // Check if internal node.
+        if (node->getRight()->getLeft() != NULL) {                    // Check right child has a left.
+            minmaxNode = findMin(node->getRight());           // Find minimum value to right.
+        } else {                                                            // Else
+            minmaxNode = findMax(node->getLeft());            // Find maximum value of the left child.
         }
-    } catch (std::exception &e) {
-        std::cout << "Exception: " << e.what() << std::endl;
+        node->setData(minmaxNode->getData());
+        this->removeSort(minmaxNode);
+    } else if (node->getRight() != NULL) {            // If node has only a right child.
+        minmaxNode = findMin(node->getRight());
+        node->setData(minmaxNode->getData());
+        this->removeSort(minmaxNode);
+    } else if (node->getLeft() != NULL) {       // If node only has a left child.
+        minmaxNode = findMax(node->getLeft());
+        node->setData(minmaxNode->getData());
+        this->removeSort(minmaxNode);
+    } else {                                        // Else; no children.
+        if (node->getParent()->getRight() == node) {
+            node->getParent()->setRight(NULL);
+        } else {
+            node->getParent()->setLeft(NULL);
+        }
+        delete node;
+    }
+    minmaxNode = NULL;
+    delete minmaxNode;
+}
+
+template<typename T>
+BTNode<T>* BSTree<T>::findMin(BTNode<T>* root) const {
+    if (root->getLeft() != NULL) {
+        return findMin(root->getLeft());
+    } else {
+        return root;
     }
 }
 
 template<typename T>
-BTNode<T>* BSTree<T>::find(BTNode<T>* node, T& target) {
-    if (node == NULL) {
-        return NULL;
+BTNode<T>* BSTree<T>::findMax(BTNode<T>* root) const {
+    if (root->getRight() != NULL) {
+        return findMax(root->getRight());
     } else {
-        if (node == NULL) {
-            return NULL;
-        } else if (target > node->getData()) {
-            return find(node->getRight(), target);
-        } else if (target < node->getData()) {
-            return find(node->getLeft(), target);
-        } else {
-            return node;
-        }
+        return root;
+    }
+}
+
+template<typename T>
+BTNode<T>* BSTree<T>::find(BTNode<T>* node, const T& target) const {
+    if (node == NULL) {                         // If node is empty/non-existent.
+        return NULL;                                // Return NULL.
+    } else if (target > node->getData()) {      // If data is greater than the nodes data.
+        return find(node->getRight(), target);      // Move to right child.
+    } else if (target < node->getData()) {      // If data is less than the nodes data.
+        return find(node->getLeft(), target);       // Move to left child.
+    } else {                                    // Else; node was found.
+        return node;                                // Return pointer to node.
     }
 }
 
@@ -201,9 +229,9 @@ std::string BSTree<T>::infix(BTNode<T>* node, int lvl) {
     if (node == NULL) {
         return str;
     } else {
-        str += infix(node->getLeft(), ++lvl);
-        str += "(" + node->getData().get_code() + ", " + toString(node->getData().get_quantity()) + ")  ";
-        str += infix(node->getRight(), ++lvl);
+        str += infix(node->getLeft(), ++lvl);       // Recursively prints the left side of the BSTree. The final node of the left side will be printed first.
+        str += "(" + node->getData().get_code() + ", " + toString(node->getData().get_quantity()) + ")  ";  // Print the current node. This will be the root of the BSTree once the first recursion is complete.
+        str += infix(node->getRight(), ++lvl);      // Recursively print the right side of the BSTree. The final node of the right side will be printed first.
         return str;
         //return(infix(node->getLeft()) + node->getData() + infix(node->getRight()));
     }

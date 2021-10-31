@@ -6,11 +6,12 @@
 #ifndef H_TABLE
 #define H_TABLE
 
-#define TABLE_SIZE 5000
+#define TABLE_SIZE 300
 
 #include <cstdlib>
 #include <ostream>
 #include <sstream>
+#include "LinkedList.h"
 
 template<typename T>
 class HTable {
@@ -22,9 +23,7 @@ class HTable {
     ~HTable();
 
     // Accessors
-    int hashfun(const T& value);
-    bool isEmpty(const int index) const;
-    T& getData(int index);
+    std::ostream& printTable(std::ostream& out);
     int calculateInventory();
     int calculateParts();
     int calculateLessThan(const int value);
@@ -34,8 +33,11 @@ class HTable {
     void remove(const T& data);
 
     private:
-    T table[TABLE_SIZE];
+    // Private Members
+    LinkedList<T>* table[TABLE_SIZE];
 
+    // Hash Function
+    int hashfun(const T& value);
 };
 
 // Operator Overload

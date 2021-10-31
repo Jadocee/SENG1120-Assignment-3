@@ -31,12 +31,12 @@ class BSTree {
         int calculateParts();															//ok
         int calculateInventory();
         int calculateLessThan(int value);
-        BTNode<T>* search(T& target);
+        //BTNode<T>* search(const T& target) const;
 
         // Mutators
         void add(const T& data);
         void remove(const T& data);
-        void removeChilds(BTNode<T>* node);
+
 
 private:
         // Private members
@@ -48,9 +48,12 @@ private:
         BTNode<T>* insert(const T& data, BTNode<T>* node);
         int calculatePartsR(BTNode<T>* node);
         int calculateInventoryR(BTNode<T>* node);
-        BTNode<T>* find(BTNode<T>* node, T& target);
-        BTNode<T>* findSmallest(BTNode<T>* node);
+        BTNode<T>* find(BTNode<T>* node, const T& target) const;
+        BTNode<T>* findMin(BTNode<T>* root) const;
+        BTNode<T>* findMax(BTNode<T>* root) const;
         int countLessThan(BTNode<T>* node, int value);
+        void deleteTree(BTNode<T>* node);
+        void removeSort(BTNode<T>* node);
 
 };
 

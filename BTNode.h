@@ -34,6 +34,7 @@ class BTNode {
 
         // Mutators
         void setData(const T& data);
+        void setData(T& data);
         void setParent(BTNode<T>* new_parent);
         void setLeft(BTNode<T>* new_left);
         void setRight(BTNode<T>* new_right);

@@ -91,6 +91,11 @@ void BTNode<T>::setData(const T& data) {
 }
 
 template<typename T>
+void BTNode<T>::setData(T& data) {
+    this->data = data;
+}
+
+template<typename T>
 void BTNode<T>::setParent(BTNode<T>* new_parent) {
     this->parent = new_parent;
 }
