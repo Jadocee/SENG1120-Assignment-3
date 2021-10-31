@@ -1,8 +1,8 @@
-/*  Assignment 3 - Binary Search Tree Implementation File
-    Jaydon cameron
-    SENG1120 Data Structures
-    C3329145
-    Implementation of BSTree.h */
+/* Assignment 3 - Binary Search Tree Implementation File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * Implementation of BSTree.h */
 
 #include <cstdlib>
 #include <string>
@@ -15,100 +15,85 @@ BSTree<T>::BSTree() {
     this->root = NULL;
 }
 
-// Destructors
+// Destructor
 template<typename T>
 BSTree<T>::~BSTree() {
-    deleteTree(this->root);
+    deleteR(this->root);    // Delete all nodes.
 }
 
 // Accessors
 template<typename T>
 int BSTree<T>::getSize() const {
-    return this->size;
+    return this->size;          // Return size;
 }
 
 template<typename T>
-std::string BSTree<T>::toString() {
-    return infix(this->root, 0);
+std::string BSTree<T>::printTree() {
+    return infix(this->root, 0);    // Use inorder navigation to recursively print the data of each node.
 }
 
 template<typename T>
 std::string BSTree<T>::toString(int n) {
-    std::ostringstream oss;
-    oss << n;
-    return oss.str();
+    std::ostringstream oss;                 // Initialize ostringstream type variable.
+    oss << n;                               // Pass the integer into it; converting the int to ostringstream.
+    return oss.str();                       // Return the ostringstream as a string.
 }
 
 template<typename T>
 int BSTree<T>::calculateParts() {
     try {
-        if (root == NULL) {
-            throw "Tree is empty.";
-        } else {
-            return(calculatePartsR(this->root));
+        if (root == NULL) {                                 // If tree is empty.
+            throw "Tree is empty.";                             // Throw exception.
+        } else {                                            // Else
+            return (calculatePartsR(this->root));        // Recursively navigate through the tree and return the number of parts.
         }
     } catch (std::exception& e) {
-        std::cout << "Exception: " << e.what() << std::endl;
-        return 0;
+        std::cout << "Exception: " << e.what() << std::endl;        // Print exception message.
+        exit(1);                                              // Exit program with error indicated as the cause.
     }
 }
 
 template<typename T>
 int BSTree<T>::calculateInventory() {
-    return calculateInventoryR(this->root);
+    return calculateInventoryR(this->root);         // Recursively navigate through the tree and return the sum of the inventory of all nodes.
 }
 
 template<typename T>
 int BSTree<T>::calculateLessThan(int value) {
-    return countLessThan(this->root, value);
+    return countLessThan(this->root, value);        // Recursively navigate through the tree and return the number of nodes with a quantity less than value.
 }
-
-/*template<typename T>
-BTNode<T>* BSTree<T>::search(const T& target) const {
-    return find(this->root, target);
-}*/
 
 // Mutators
 template<typename T>
-void BSTree<T>::deleteTree(BTNode<T>* node) {
-    if (node != NULL) {
-        deleteTree(node->getRight());
-        deleteTree(node->getLeft());
-        delete node;
-        size--;
-    }
-}
-
-template<typename T>
 void BSTree<T>::add(const T& data) {
-    if (root == NULL) {
-        root = new BTNode<T>(data);
-        this->size++;
-    } else {
-        this->insert(data, root);
+    if (root == NULL) {                 // If tree is empty.
+        root = new BTNode<T>(data);         // Create a new node containing the data, and make it the root of the tree.
+        this->size++;                       // Update size.
+    } else {                            // Else
+        this->insert(data, root);           // Recursively navigate the tree to insert the data.
     }
 }
 
 template<typename T>
 BTNode<T>* BSTree<T>::insert(const T& data, BTNode<T>* node) {
-    if (data < node->getData()) { // Check if less than
-        if (node->getLeft() != NULL) {
-            node->setLeft(insert(data, node->getLeft()));
-        } else {
-            node->setLeft(new BTNode<T>(data, node, NULL, NULL));
-            this->size++;
+    if (data < node->getData()) {                                   // If data is less than this nodes data.
+        if (node->getLeft() != NULL) {                                  // If this node has a left child.
+            node->setLeft(insert(data, node->getLeft()));                   // Move to left child; continue recursive function.
+        } else {                                                        // Else
+            node->setLeft(new BTNode<T>(data, node, NULL, NULL));           // Insert data into a new node for the left child.
+            this->size++;                                                   // Update size.
         }
-    } else if (data > node->getData()) {
-        if (node->getRight() != NULL) {
-            node->setRight(insert(data, node->getRight()));
-        } else {
-            node->setRight(new BTNode<T>(data, node, NULL, NULL));
-            this->size++;
+    } else if (data > node->getData()) {                            // If data is greater than this nodes data.
+        if (node->getRight() != NULL) {                                 // If this node has a right child
+            node->setRight(insert(data, node->getRight()));                 // Move to right child; continue recursive function.
+        } else {                                                        // Else
+            node->setRight(new BTNode<T>(data, node, NULL, NULL));          // Insert data into a new node for the right child.
+            this->size++;                                                   // Update size.
         }
-    } else {
-        node->setData(data);
+    } else {                                                        // Else (node/data already exists)
+        node->setData(data);                                            // Replace this nodes data with the new data.
     }
-    return node;
+    return node;                                                    // Return a pointer this node.
 }
 template<typename T>
 void BSTree<T>::remove(const T& data) {
@@ -148,6 +133,7 @@ void BSTree<T>::removeSort(BTNode<T>* node) {
             node->getParent()->setLeft(NULL);
         }
         delete node;
+        size--;
     }
     minmaxNode = NULL;
     delete minmaxNode;
@@ -233,13 +219,22 @@ std::string BSTree<T>::infix(BTNode<T>* node, int lvl) {
         str += "(" + node->getData().get_code() + ", " + toString(node->getData().get_quantity()) + ")  ";  // Print the current node. This will be the root of the BSTree once the first recursion is complete.
         str += infix(node->getRight(), ++lvl);      // Recursively print the right side of the BSTree. The final node of the right side will be printed first.
         return str;
-        //return(infix(node->getLeft()) + node->getData() + infix(node->getRight()));
     }
 }
 
-// Overloads
+template<typename T>
+void BSTree<T>::deleteR(BTNode<T>* node) {
+    if (node != NULL) {
+        deleteR(node->getRight());
+        deleteR(node->getLeft());
+        delete node;
+        size--;
+    }
+}
+
+// Overload ostream operator
 template<typename T>
 std::ostream& operator<<(std::ostream& out, BSTree<T>& tree) {
-    out << tree.toString();
+    out << tree.printTree();
     return out;
 }

@@ -1,8 +1,8 @@
-/*  Assignment 3 - Hash Table Implementation File
-    Jaydon cameron
-    SENG1120 Data Structures
-    C3329145
-    Implementation of the functions in HTable.h  */
+/* Assignment 3 - Hash Table Implementation File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * Implementation of the functions in HTable.h */
 
 #include <string>
 #include "HTable.h"

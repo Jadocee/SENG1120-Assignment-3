@@ -1,8 +1,8 @@
-/*  Assignment 3 - Binary Tree Node Implementation File
-    Jaydon cameron
-    SENG1120 Data Structures
-    C3329145
-    Implementation of BTNode.h  */
+/* Assignment 3 - Binary Tree Node Implementation File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * Implementation of BTNode.h */
 
 #include "BTNode.h"
 #include <cstdlib>

@@ -1,13 +1,8 @@
-/****************************************************/
-/**  Assignment 2 - Linked List Source File        **/
-/**  Jaydon Cameron                                **/
-/**  SENG1120 Data Structures                      **/
-/**  C3329145                                      **/
-/**  This source file contains the implementation  **/
-/**  of the functions in the LinkedList.h file for **/
-/**  working with the linked list and accessing    **/
-/**  the nodes.                                    **/
-/****************************************************/
+/* Assignment 3 - Linked List Implementation File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * Implementation of the functions in LinkedList.h */
 
 #include "LinkedList.h"
 

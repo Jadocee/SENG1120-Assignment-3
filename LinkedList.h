@@ -1,11 +1,8 @@
-/****************************************************/
-/**  Assignment 2 - Linked List Header File        **/
-/**  Jaydon Cameron                                **/
-/**  SENG1120 Data Structures                      **/
-/**  C3329145                                      **/
-/**  This header file contains the functions used  **/
-/**  by the LinkedList.hpp file.                   **/
-/****************************************************/
+/* Assignment 3 - Linked List Header File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * This header file contains the functions used by the LinkedList.hpp file. */
 
 #ifndef LINKED_LIST
 #define LINKED_LIST

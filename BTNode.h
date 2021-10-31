@@ -1,9 +1,8 @@
-/*  Assignment 3 - Binary Tree Node Header File
-    Jaydon cameron
-    SENG1120 Data Structures
-    C3329145
-    This header file contains the functions used  
-    by the BTNode.hpp file. */
+/* Assignment 3 - Binary Tree Node Header File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * This header file contains the functions used by the BTNode.hpp file. */
 
 #ifndef BT_NODE
 #define BT_NODE

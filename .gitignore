@@ -33,5 +33,10 @@
 
 *.stackdump
 
+#CMake
 CMakeLists.txt
 .idea
+
+# Additional files required for submission
+Bonus.txt
+*.zip

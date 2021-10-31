@@ -1,9 +1,8 @@
-/*  Assignment 3 - Binary Search Tree Header File
-    Jaydon cameron
-    SENG1120 Data Structures
-    C3329145
-    This header file contains the functions used  
-    by the BSTree.hpp file. */
+/* Assignment 3 - Binary Search Tree Header File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * This header file contains the functions used by the BSTree.hpp file. */
 
 #ifndef BS_TREE
 #define BS_TREE
@@ -26,12 +25,11 @@ class BSTree {
 
         // Accessors
         int getSize() const;
-        std::string toString();
+        std::string printTree();
         std::string toString(int n);
         int calculateParts();															//ok
         int calculateInventory();
         int calculateLessThan(int value);
-        //BTNode<T>* search(const T& target) const;
 
         // Mutators
         void add(const T& data);
@@ -52,12 +50,11 @@ private:
         BTNode<T>* findMin(BTNode<T>* root) const;
         BTNode<T>* findMax(BTNode<T>* root) const;
         int countLessThan(BTNode<T>* node, int value);
-        void deleteTree(BTNode<T>* node);
+        void deleteR(BTNode<T>* node);
         void removeSort(BTNode<T>* node);
-
 };
 
-// Overloads
+// Overload ostream operator
 template<typename T>
 std::ostream& operator<<(std::ostream& out, const BSTree<T>& tree);
 

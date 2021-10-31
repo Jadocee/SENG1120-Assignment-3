@@ -1,11 +1,8 @@
-/****************************************************/
-/**  Assignment 2 - Node Header File               **/
-/**  Jaydon Cameron                                **/
-/**  SENG1120 Data Structures                      **/
-/**  C3329145                                      **/
-/**  This header file contains the functions used  **/
-/**  by the Node.hpp file.                         **/
-/****************************************************/
+/* Assignment 3 - Node Header File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * Header file for Node.hpp */
 
 #ifndef NODE
 #define NODE

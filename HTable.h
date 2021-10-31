@@ -1,8 +1,9 @@
-/*  Assignment 3 - Hash Table Header File
-    Jaydon cameron
-    SENG1120 Data Structures
-    C3329145
-    Header file for HTable.hpp  */
+/* Assignment 3 - Hash Table Header File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * Header file for HTable.hpp */
+
 #ifndef H_TABLE
 #define H_TABLE
 

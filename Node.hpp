@@ -1,12 +1,8 @@
-/****************************************************/
-/**  Assignment 2 - Node Source File               **/
-/**  Jaydon Cameron                                **/
-/**  SENG1120 Data Structures                      **/
-/**  C3329145                                      **/
-/**  This source file contains the implementation  **/
-/**  of the functions in Node.h which are used to  **/
-/**  access the nodes and its data.                **/
-/****************************************************/
+/* Assignment 3 - Node Implementation File
+ * Jaydon Cameron
+ * SENG1120 Data Structures
+ * C3329145
+ * Implementation of the functions in Node.h */
 
 #include "Node.h"
 #include "string"
